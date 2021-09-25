@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        #main {
+            width: 200px;
+            display: block;
+            margin: auto;
+            border: 1px solid blue;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      </div>
+      <div></div>
+      <br>
+    <div id="main">
+        <table style="width:100%; " border="1">
+            <tr>
+                <td colspan=4><input style="width:97%" type=text id=res size=16 onfocus="this.blur();"></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><input type="button" id="b1" value=0 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b2" value=1 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b3" value=2 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b4" value=+ size=2 ></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><input type="button" id="b5" value=3 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b6" value=4 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b7" value=5 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b8" value=- size=2 ></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><input type="button" id="b9" value=6 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b10" value=7 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b11" value=8 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b12" value=* size=2 ></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><input type="button" id="b13" value=9 size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b14" value=+/- size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b15" value='C' size=2 ></td>
+                <td style="text-align:center"><input type="button" id="b16" value='/' size=2 ></td>
+            </tr>
+            <tr>
+                <td colspan=4 style="text-align:center"><input style="width:50%" type="button" id="equal" value="="
+                       ></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    const  f= function(d) {
+            if (d == "c") {
+                document.getElementById("res").value = "";
+                return;
+            }
+            res = document.getElementById("res").value;
+            if (res == 0 && d == 0) return;
+            if (d == "+" || d == "-" || d == "*" || d == "/") {
+                opr = d;
+                num = parseFloat(res);
+                document.getElementById("res").value = d;
+                return;
+            }
+            if (d == "=") {
+                num1 = parseFloat(res);
+                switch (opr) {
+                    case "+":
+                        ans = num + num1;
+                        break;
+                    case "-":
+                        ans = num - num1;
+                        break;
+                    case "*":
+                        ans = num * num1;
+                        break;
+                    case "/":
+                        ans = parseInt(num / num1);
+                        break;
+                }
+                document.getElementById("res").value = ans;
+                return;
+            }
+            if (d == "--") {
+                document.getElementById("res").value *= -1;
+                return;
+            }
+            if (!isNaN(document.getElementById("res").value))
+                document.getElementById("res").value += d;
+            else document.getElementById("res").value = d;
+        }
+
+        const checkd = function(d){
+            switch(d){
+                case '0':
+                    f(0);
+                    break;
+                 case 'C':
+                     f('c');
+                     break;
+                case '+/-':
+                    f('--');
+                    break;
+                default:
+                    f(d);
+                break;
+            }
+        }
+    $('#b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8,#b9,#b10,#b11,#b12,#b13,#b14,#b15,#b16,#equal').click(function(){
+        var num = $(this).val();
+        checkd(num)
+
+    })
+       
+</script>
